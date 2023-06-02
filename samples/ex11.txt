@@ -1,0 +1,4 @@
+/* Exemplo atribuicao de variavel */
+float x;
+x <- float(int(float(float(int(float(int(6.75)))))));
+writeln(x);

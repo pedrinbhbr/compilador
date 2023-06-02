@@ -1,0 +1,26 @@
+/* Exemplo atribuicao de variavel */
+int v;
+v <- 8;
+writeln(v);
+v <- 10;
+writeln(v);
+
+float b;
+b <- 10.0;
+writeln(b);
+b <- 36.54;
+writeln(b);
+
+char n;
+n <- 'N';
+writeln(n);
+n <- 'Y';
+writeln(n);
+
+string m;
+m <- "doidim";
+writeln(m);
+m <- "cabuloso";
+writeln(m);
+m[4] <- 'L';
+writeln(m);

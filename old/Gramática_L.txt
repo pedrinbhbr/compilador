@@ -1,0 +1,28 @@
+Precedência:
+
+a) Acesso a posições do string, usando [ ];
+b) parênteses;
+c) conversão de tipos: int(expressão) ou float(expressão);
+d) negação lógica (!);
+e) multiplicação aritmética (*) e lógica (&&), divisão real (/), quociente da divisão (div) e
+resto da divisão (mod);
+f) subtração (-), adição aritmética (+) e lógica ( || );
+g) comparação aritmética (=,!=,<,>,<=,>=) e entre strings (=).
+
+Gramática:
+
+INICIO -> {DECLARACOES | COMANDOS} EOF
+DECLARACOES -> (DECLA_VAR | DECLA_CONST) ;
+DECLA_VAR -> TIPO id [<- [-] constante] {, id [<- [-] constante]}
+TIPO -> int | float | string | char
+DECLA_CONST -> const id = [-] constante
+COMANDOS -> [ATRIBUICAO | LEITURA | ESCRITA] ; | (REPETICAO | TESTE)
+ATRIBUICAO -> id [ "[" EXP "]" ] <- EXP
+REPETICAO -> while EXP ( COMANDOS | "{" {COMANDOS} "}" )
+TESTE -> if EXP ( COMANDOS | "{" {COMANDOS} "}" ) [ else ( COMANDOS | "{" {COMANDOS} "}" ) ]
+LEITURA -> readln "(" id ")"
+ESCRITA -> (write | writeln) "(" EXP {, EXP} ")"
+EXP -> EXPS [ (= | != | < | > | <= | >=) EXPS]
+EXPS -> [-] T { (+ | - | "||") T}
+T -> F { (* | && | / | div | mod) F}
+F -> ! F | (int | float) "(" EXP ")" | "(" EXP ")" | id [ "[" EXP "]" ] | constante

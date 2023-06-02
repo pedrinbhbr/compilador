@@ -1,0 +1,4 @@
+/* Exemplo atribuicao de variavel */
+float x;
+x <- 2 * (20/5);
+writeln(x);

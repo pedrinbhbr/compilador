@@ -1,0 +1,11 @@
+/* Exemplo */
+int x <- 0;
+int soma, aux;
+soma <- 0;
+while x < 5 {
+    write("Escreva um numero inteiro 5 vezes (",x,") : ");
+    readln(aux);
+    soma <- soma + aux;
+    x <- x + 1;
+} /* fim while */
+writeln("Acabou! Resultado da soma dos numeros digitados: ",soma);

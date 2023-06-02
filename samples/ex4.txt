@@ -1,0 +1,7 @@
+/* Exemplo atribuicao de variavel */
+const x = .05;
+write(x," =lul ");
+float y <- -.125;
+writeln(" // ",y," sai");
+write(.645);
+writeln(" // ",.0801," fim");

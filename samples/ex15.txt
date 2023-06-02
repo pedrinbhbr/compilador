@@ -1,0 +1,15 @@
+/* Exemplo atribuicao de variavel */
+
+string x <- "b";
+string y <- "b";
+string z <- "alb";
+
+if x=y
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if x=z
+writeln("VERDADEIRO");
+else
+writeln("FALSO");

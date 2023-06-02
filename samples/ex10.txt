@@ -1,0 +1,7 @@
+/* Exemplo atribuicao de variavel */
+int v;
+v <- 5 mod 10;
+writeln(v);
+writeln(5 mod 10);
+writeln(5 mod 2);
+writeln(7 mod 4 mod 2);

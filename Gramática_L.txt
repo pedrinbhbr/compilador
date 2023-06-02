@@ -1,0 +1,141 @@
+/**
+ * Ciência da Computação - PUC Coração Eucarístico - Compiladores - 2/2021 
+ * 
+ * Igor Machado Seixas
+ * Matheus Mendes Tavares
+ * Pedro Henrique Ferreira de Souza
+ *
+**/
+
+Precedência:
+
+a) Acesso a posições do string, usando [ ];
+b) parênteses;
+c) conversão de tipos: int(expressão) ou float(expressão);
+d) negação lógica (!);
+e) multiplicação aritmética (*) e lógica (&&), divisão real (/), quociente da divisão (div) e
+resto da divisão (mod);
+f) subtração (-), adição aritmética (+) e lógica ( || );
+g) comparação aritmética (=,!=,<,>,<=,>=) e entre strings (=).
+
+Gramática com índice da notação semântica (indice) e geração de código (A+indice, ex: A1):
+
+INICIO -> (A1) {DECLARACOES | COMANDOS} EOF (A2)
+DECLARACOES -> (DECLA_VAR | DECLA_CONST) ;
+DECLA_VAR -> TIPO id (32)(A3) [<- [- (33)] constante (34)(A4)] {, id (32)(A3) [<- [- (33)] constante (34)(A4)]}
+TIPO -> int (28) | float (29) | string (30) | char (31)
+DECLA_CONST -> const id (26) = [-] constante (27)(A5)
+COMANDOS -> [ATRIBUICAO | LEITURA | ESCRITA] ; | (REPETICAO | TESTE)
+ATRIBUICAO -> id (22) (A10) [ "[" (6) EXP (24)(A16) "]" ] <- EXP (25)(A17)
+REPETICAO -> while (A27) EXP (A28) (23) ( COMANDOS(A29) | "{" {COMANDOS} "}" )(A24)
+TESTE -> if (A18)EXP (23)(A19) ( COMANDOS | "{" {COMANDOS} "}" (A22)) (A23)[ else ( COMANDOS | "{" {COMANDOS} "}" ) ](A24)
+LEITURA -> readln "(" id (22) ")" (A30)
+ESCRITA -> (write | writeln) "(" (A10) EXP (21) {, (A6)(A10) EXP (21)} ")" (A6)
+EXP -> EXPS [ (= | != | < | > | <= | >=) EXPS1 (19)(A25)] (20)
+EXPS -> [-] T (14)(A7) { (+ (15) | - (15) | "||" (16)) T1 (17)(A26)} (18)
+T -> F (A13){ (* (9) | && (10) | / (9) | div (11) | mod (11)) (A14) F1 (12)(A15) } (13)
+F -> ! F1 (1)(A12) | (int | float) (2) "(" EXP (3) ")" (A20) | "(" EXP (4) ")" (A21) | id (5)(A8) [ "[" (6) EXP (7)(A11) "]" ] | constante (8)(A9)
+
+Notação semântica e geração de código:
+
+(A1)	inicializando programa com áreas de dados, temporário e sessão de código
+(A2)	finalizando programa com a chamada do kernel
+(A3)	aloca área de memória necessária para o id variável declarado
+(A4)	atribui valor ao id variável no seu endereço de memória reservado
+(A5)	atribui valor ao id constante no seu endereco de memoria reservado
+(A6)	cria novo temporario, armazena expressao e converte para string para imprimir
+(A7)	recupera valor numerico, atribui seu valor negativo a um novo temporario e atribui novo temporario para T
+(A8)	atribui endereco e tamanho do id para F
+(A9)	atribui valor a um novo temporario e atribui novo temporario para F
+(A10)	limpa area da memoria dos temporarios
+(A11)	atualiza ponteiro para a posicao desejada da string e atribui caractere a um novo temporario. Atualiza endereco de F para o novo temporario
+(A12)	recupera valor no endereco de F1, realiza a negacao logica e atribui o resultado em um novo temporario. Atualiza endereco de F para o novo temporario
+(A13)   atribui endereco e tipo de F em T
+(A14)	guardar tipo de operador * && / div mod
+(A15)   converter tipos, fazer expancao de sinais e guardar resultado no endereco de T
+(A16)	recupera o indice da string apontado pelo endereco de EXP. Salva o valor em um temporario
+(A17)	atribui conteudo de EXP e armazena o resultado no endereco em id
+(A18)	cria dois novos rotulos que sera o falso e o fim
+(A19)	carregar conteudo de exp e se a exp e falsa desvia para rot falso
+(A20)	carrega conteudo de EXP. Realiza a conversao para inteiro ou real. Salva valor em um novo temporario. Atualiza endereco de F para o novo temporario
+(A21)	atribui endereco e tamanho do id para F
+(A22)   desvia para rot fim
+(A23)	RotFalso:
+(A24)	RotFim:
+(A25)	correga os conteudos e faz o relacional exigido
+(A26)	carrega conteudo de T e T1. Realiza operacao desejada. Salva valor em um novo temporario e atualiza endereco de T (acumulador).
+(A27)	cria dos novos rot inicio e fim e inicia RotInicio:
+(A28)	carrega conteude de EXP.end se for falso desvia para RotFim
+(A29) 	desvia para RotInicio
+(A30)	Analisa tipo de ID e realiza atribuicao do valor no endereco do ID indicado. Valor vem do teclado, contido no endereco do buffer
+
+
+(1)		SE F1.tipo ≠ logico ENTÃO ERRO 
+		SENÃO F.tipo = F1.tipo
+(2) 	F.tipo = inteiro OU F.tipo = real
+(3) 	SE EXP.tipo ≠ inteiro E EXP.tipo ≠ real ENTÃO ERRO
+(4) 	F.tipo = EXP.tipo
+(5) 	SE id.classe = vazio ENTÃO ERRO 
+		SENÃO F.tipo = id.tipo
+(6)		SE id.tipo ≠ string ENTÃO ERRO   
+(7)		SE EXP.tipo = inteiro ENTÃO F.tipo = caractere
+		SENÃO ERRO
+(8) 	F.tipo = constante.tipo
+(9) 	SE F.tipo ≠ inteiro E F.tipo ≠ real ENTÃO ERRO
+(10)	SE F.tipo ≠ logico ENTÃO ERRO
+(11)	SE F.tipo ≠ inteiro ENTÃO ERRO
+(12)	SE * OU / ENTÃO 
+			SE F1.tipo ≠ inteiro E F1.tipo ≠ real ENTÃO ERRO
+			SENÃO SE * ENTÃO
+				SE F.tipo = inteiro E F1.tipo = inteiro ENTÃO F.tipo = inteiro
+				SENÃO F.tipo = real
+			SENÃO F.tipo = real
+		SENÃO SE F.tipo = inteiro E F1.tipo ≠ inteiro ENTÃO ERRO
+		SENÃO SE F.tipo = logico E F1.tipo ≠ logico ENTÃO ERRO
+(13)	T.tipo = F.tipo
+(14)	SE - E (T.tipo ≠ inteiro E T.tipo ≠ real) ENTÃO ERRO
+(15)	SE T.tipo ≠ inteiro E T.tipo ≠ real ENTÃO ERRO
+(16)	SE T.tipo ≠ logico ENTÃO ERRO
+(17)	SE + OU - ENTÃO 
+			SE T1.tipo ≠ inteiro E T1.tipo ≠ real ENTÃO ERRO
+			SENÃO SE T.tipo = inteiro E T1.tipo = inteiro ENTÃO T.tipo = inteiro
+			SENÃO T.tipo = real
+		SENÃO SE T.tipo = logico E T1.tipo ≠ logico ENTÃO ERRO
+(18)	EXPS.tipo = T.tipo
+(19)	SE (EXPS.tipo = inteiro OU EXPS.tipo = real) E (EXPS1.tipo ≠ inteiro E EXPS1.tipo ≠ real) ENTÃO ERRO
+		SENÃO SE EXPS.tipo = caractere E EXPS1.tipo ≠ caractere ENTÃO ERRO
+		SENÃO SE EXPS.tipo = string E (EXPS1.tipo ≠ string OU NÃOFOR =) ENTÃO ERRO
+		SENÃO SE EXPS1.tipo = string E NÃOFOR = ENTÃO ERRO
+		SENÃO EXPS.tipo = logico
+(20)	EXP.tipo = EXPS.tipo
+(21)	SE EXP.tipo = logico ENTÃO ERRO
+(22)	SE id.classe ≠ variavel ENTÃO ERRO
+(23)	SE EXP.tipo ≠ logico ENTÃO ERRO
+(24)	SE EXP.tipo ≠ inteiro ENTÃO ERRO
+(25)	SE id.tipo = inteiro E EXP.tipo ≠ inteiro ENTÃO ERRO
+		SENÃO SE id.tipo = real E (EXP.tipo ≠ inteiro E EXP.tipo ≠ real) ENTÃO ERRO
+		SENÃO SE id.tipo = caractere E EXP.tipo ≠ caractere ENTÃO ERRO
+		SENÃO SE id.tipo = string 
+			SE ARRANJO E EXP.tipo ≠ caractere ENTÃO ERRO
+			SENÃO SE NÃOFOR ARRANJO E EXP.tipo ≠ string ENTÃO ERRO
+(26)	SE id.classe ≠ vazio ENTÃO ERRO
+		SENÃO id.classe = constante
+(27)	SE - ENTÃO
+			SE constante.tipo ≠ inteiro E constante.tipo ≠ real ENTÃO ERRO
+			SENÃO SE constante.tipo = inteiro ENTÃO id.tipo = inteiro
+			SENÃO id.tipo = real
+		SENÃO SE constante.tipo = inteiro ENTÃO id.tipo = inteiro
+		SENÃO SE constante.tipo = real ENTÃO id.tipo = real
+		SENÃO SE constante.tipo = caractere ENTÃO id.tipo = caractere
+		SENÃO SE constante.tipo = string ENTÃO id.tipo = string
+		SENÃO ERRO
+(28)	TIPO.tipo = inteiro
+(29)	TIPO.tipo = real
+(30)	TIPO.tipo = string
+(31)	TIPO.tipo = caractere
+(32)	SE id.classe ≠ vazio ENTÃO ERRO
+		SENÃO id.classe = variavel, id.tipo = TIPO.tipo
+(33)	SE id.tipo ≠ inteiro E id.tipo ≠ real ENTÃO ERRO
+(34)	SE - E (constante.tipo ≠ inteiro E constante.tipo ≠ real) ENTÃO ERRO
+		SE id.tipo = real E (constante.tipo ≠ inteiro E constante.tipo ≠ real) ENTÃO ERRO
+		SENÃO SE id.tipo ≠ real E id.tipo ≠ constante.tipo ENTÃO ERRO

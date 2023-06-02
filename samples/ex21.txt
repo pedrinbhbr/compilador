@@ -1,0 +1,25 @@
+int n;
+string nome<- "aaaa";
+const MAXITER=10.55;
+int m<-2;
+char max;
+nome[2-1] <- '2';
+float a<-555.2;
+
+write("Digite seu nome: ");
+readln(nome);
+
+n <- -1 + n;
+
+while n<=MAXITER{
+  writeln("Ola ",nome);
+  if (nome[0] != nome[1]) {
+  if ((nome[0] > nome[2]) || !(1 > 2)) {
+  max<-nome[0]; 
+  a<-1.2 / .2;
+  }
+  else max<-nome[2];
+  } else if (nome[1] > nome[2]) max<-nome[1]; else { max<-nome[2]; }
+  writeln("O maior numero e' ",max);
+  n<-n+1;
+}

@@ -1,0 +1,7 @@
+/* Exemplo atribuicao de variavel */
+const x = "matheus";
+write(x[0]," =lul ");
+string y <- "mendes";
+writeln(" // ",y[2]," sai");
+write(0.645);
+writeln(" // ",.0801," fim");

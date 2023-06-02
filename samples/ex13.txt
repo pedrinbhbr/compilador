@@ -1,0 +1,122 @@
+/* Exemplo atribuicao de variavel */
+float x <- 1;
+float y <- 2.0;
+char a, b;
+a <- 'a';
+b <- 'b';
+/*
+if (x=1) && (y=2)
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if (a!=b)
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if (x!=1)
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if x<y
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 1.0<2.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2.0<2
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2<1.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if a<b
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if x<=y
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 1.0<=2.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2.0<=2
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2<=1.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if a<=b
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+*/
+
+if x>y
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 1.0>2.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2.0>2
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2>1.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if a>b
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if x>=y
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 1.0>=2.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2.0>=2
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if 2>=1.0
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+
+if a>=b
+writeln("VERDADEIRO");
+else
+writeln("FALSO");

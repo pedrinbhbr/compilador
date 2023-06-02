@@ -1,0 +1,107 @@
+Precedência:
+
+a) Acesso a posições do string, usando [ ];
+b) parênteses;
+c) conversão de tipos: int(expressão) ou float(expressão);
+d) negação lógica (!);
+e) multiplicação aritmética (*) e lógica (&&), divisão real (/), quociente da divisão (div) e
+resto da divisão (mod);
+f) subtração (-), adição aritmética (+) e lógica ( || );
+g) comparação aritmética (=,!=,<,>,<=,>=) e entre strings (=).
+
+Gramática com índice da notação semântica:
+
+INICIO -> {DECLARACOES | COMANDOS} EOF
+DECLARACOES -> (DECLA_VAR | DECLA_CONST) ;
+DECLA_VAR -> TIPO id 32 [<- [- 33] constante 34] {, id 32 [<- [- 33] constante 34]}
+TIPO -> int 28 | float 29 | string 30 | char 31
+DECLA_CONST -> const id 26 = [-] constante 27
+COMANDOS -> [ATRIBUICAO | LEITURA | ESCRITA] ; | (REPETICAO | TESTE)
+ATRIBUICAO -> id 22 [ "[" 6 EXP 24 "]" ] <- EXP 25
+REPETICAO -> while EXP 23 ( COMANDOS | "{" {COMANDOS} "}" )
+TESTE -> if EXP 23 ( COMANDOS | "{" {COMANDOS} "}" ) [ else ( COMANDOS | "{" {COMANDOS} "}" ) ]
+LEITURA -> readln "(" id 22 ")"
+ESCRITA -> (write | writeln) "(" EXP 21 {, EXP 21} ")"
+EXP -> EXPS [ (= | != | < | > | <= | >=) EXPS1 19] 20
+EXPS -> [-] T 14 { (+ 15 | - 15 | "||" 16) T1 17} 18
+T -> F { (* 9 | && 10 | / 9 | div 11 | mod 11) F1 12 } 13
+F -> ! F1 1 | (int | float) 2 "(" EXP 3 ")" | "(" EXP 4 ")" | id 5 [ "[" 6 EXP 7 "]" ] | constante 8
+
+Notação semântica:
+
+1)	SE F1.tipo ≠ logico ENTÃO ERRO 
+	SENÃO F.tipo = F1.tipo
+2) 	F.tipo = inteiro OU F.tipo = real
+3) 	SE EXP.tipo ≠ inteiro E EXP.tipo ≠ real ENTÃO ERRO
+4) 	F.tipo = EXP.tipo
+5) 	SE id.classe = vazio ENTÃO ERRO 
+	SENÃO F.tipo = id.tipo
+6)	SE id.tipo ≠ string ENTÃO ERRO   
+7)	SE EXP.tipo = inteiro ENTÃO F.tipo = caractere
+	SENÃO ERRO
+8) 	F.tipo = constante.tipo
+9) 	SE F.tipo ≠ inteiro E F.tipo ≠ real ENTÃO ERRO
+10)	SE F.tipo ≠ logico ENTÃO ERRO
+11)	SE F.tipo ≠ inteiro ENTÃO ERRO
+12)	SE * OU / ENTÃO 
+		SE F1.tipo ≠ inteiro E F1.tipo ≠ real ENTÃO ERRO
+		SENÃO SE * ENTÃO
+			SE F.tipo = inteiro E F1.tipo = inteiro ENTÃO F.tipo = inteiro
+			SENÃO F.tipo = real
+		SENÃO F.tipo = real
+	SENÃO SE F.tipo = inteiro E F1.tipo ≠ inteiro ENTÃO ERRO
+	SENÃO SE F.tipo = logico E F1.tipo ≠ logico ENTÃO ERRO
+13)	T.tipo = F.tipo
+14)	SE - E (T.tipo ≠ inteiro E T.tipo ≠ real) ENTÃO ERRO
+15)	SE T.tipo ≠ inteiro E T.tipo ≠ real ENTÃO ERRO
+16)	SE T.tipo ≠ logico ENTÃO ERRO
+17) SE + OU - ENTÃO 
+		SE T1.tipo ≠ inteiro E T1.tipo ≠ real ENTÃO ERRO
+		SENÃO SE T.tipo = inteiro E T1.tipo = inteiro ENTÃO T.tipo = inteiro
+		SENÃO T.tipo = real
+	SENÃO SE T.tipo = logico E T1.tipo ≠ logico ENTÃO ERRO
+18)	EXPS.tipo = T.tipo
+19)	SE (EXPS.tipo = inteiro OU EXPS.tipo = real) E (EXPS1.tipo ≠ inteiro E EXPS1.tipo ≠ real) ENTÃO ERRO
+	SENÃO SE EXPS.tipo = caractere E EXPS1.tipo ≠ caractere ENTÃO ERRO
+	SENÃO SE EXPS.tipo = string E (EXPS1.tipo ≠ string OU NÃOFOR =) ENTÃO ERRO
+	SENÃO SE EXPS1.tipo = string E NÃOFOR = ENTÃO ERRO
+	SENÃO EXPS.tipo = logico
+20) EXP.tipo = EXPS.tipo
+21)	SE EXP.tipo = logico ENTÃO ERRO
+22)	SE id.classe ≠ variavel ENTÃO ERRO
+23)	SE EXP.tipo ≠ logico ENTÃO ERRO
+24)	SE EXP.tipo ≠ inteiro ENTÃO ERRO
+25)	SE id.tipo = inteiro E EXP.tipo ≠ inteiro ENTÃO ERRO
+	SENÃO SE id.tipo = real E (EXP.tipo ≠ inteiro E EXP.tipo ≠ real) ENTÃO ERRO
+	SENÃO SE id.tipo = caractere E EXP.tipo ≠ caractere ENTÃO ERRO
+	SENÃO SE id.tipo = string 
+		SE ARRANJO E EXP.tipo ≠ caractere ENTÃO ERRO
+		SENÃO SE NÃOFOR ARRANJO E EXP.tipo ≠ string ENTÃO ERRO
+26)	SE id.classe ≠ vazio ENTÃO ERRO
+	SENÃO id.classe = constante
+27)	SE - ENTÃO
+		SE constante.tipo ≠ inteiro E constante.tipo ≠ real ENTÃO ERRO
+		SENÃO SE constante.tipo = inteiro ENTÃO id.tipo = inteiro
+		SENÃO id.tipo = real
+	SENÃO SE constante.tipo = inteiro ENTÃO id.tipo = inteiro
+	SENÃO SE constante.tipo = real ENTÃO id.tipo = real
+	SENÃO SE constante.tipo = caractere ENTÃO id.tipo = caractere
+	SENÃO SE constante.tipo = string ENTÃO id.tipo = string
+	SENÃO ERRO
+28)	TIPO.tipo = inteiro
+29)	TIPO.tipo = real
+30)	TIPO.tipo = string
+31)	TIPO.tipo = caractere
+32)	SE id.classe ≠ vazio ENTÃO ERRO
+	SENÃO id.classe = variavel, id.tipo = TIPO.tipo
+33)	SE id.tipo ≠ inteiro E id.tipo ≠ real ENTÃO ERRO
+34)	SE - E (constante.tipo ≠ inteiro E constante.tipo ≠ real) ENTÃO ERRO
+	SE id.tipo = real E (constante.tipo ≠ inteiro E constante.tipo ≠ real) ENTÃO ERRO
+	SENÃO SE id.tipo ≠ real E id.tipo ≠ constante.tipo ENTÃO ERRO
+	
+
+	
+OBS: alterações feitas abaixo. (log)
+-alterei a regra 21 e ficou igual a 23 :(
+-precisei dividir uma regra. Pra não renumerar tudo, peguei o número 21 que era regra repetida mesmo
+-acabei de ver, depois de refatorar, que as regras 6 e 24 são iguals...PORRA! Consertei..

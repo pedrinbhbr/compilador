@@ -1,0 +1,7 @@
+/* Exemplo atribuicao de variavel */
+float v;
+v <- 2 / 3;
+v <- 25 / 5 / 5;
+writeln(v);
+writeln(5/1);
+writeln(100/10/10*5);

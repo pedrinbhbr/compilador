@@ -1,0 +1,15 @@
+const MAXITER = 5;
+/*int n <- 0;*/
+string nome;
+
+readln(nome);
+/*nome <- "Matheus";*/
+int n;
+n <- -1 + n;
+
+while n<=MAXITER{
+  if (nome[0] != nome[2]){
+    writeln("Ola ",nome);
+  }
+  n <- n+1;
+}

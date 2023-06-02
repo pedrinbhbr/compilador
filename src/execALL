@@ -1,0 +1,9 @@
+g++ tabela-simbolos.cpp analisador-lexico.cpp tradutor.cpp main.cpp -o main
+./main < ../samples/ex22.txt
+echo
+nasm saida.asm -g -w-zeroing -f elf64 -o saida.o -w-all
+ld saida.o -o saida
+echo
+echo "Executando Programa..."
+echo
+./saida

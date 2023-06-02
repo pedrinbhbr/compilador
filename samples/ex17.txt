@@ -1,0 +1,9 @@
+/* Exemplo atribuicao de variavel */
+string x <- "foo";
+string y <- "foo";
+
+while x=y 
+{ 
+    writeln(x);
+    x <- "bar";
+}

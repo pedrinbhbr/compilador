@@ -1,0 +1,12 @@
+/* Exemplo atribuicao de variavel */
+string x, y;
+x <- "Deu certo";
+readln(y);
+
+while 1=1{
+if !(x=y)
+writeln("VERDADEIRO");
+else
+writeln("FALSO");
+readln(y);
+}

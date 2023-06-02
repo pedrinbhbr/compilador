@@ -1,0 +1,9 @@
+/* Exemplo atribuicao de variavel */
+const x = "10";
+write(x);
+writeln(x);
+string y <- "Matheus";
+write(y);
+writeln(y);
+write("Constante");
+writeln("-10");

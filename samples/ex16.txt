@@ -1,0 +1,14 @@
+/* Exemplo atribuicao de variavel */
+/*7.11000*/
+writeln(0.5+5.5+0.4+.71);
+
+/*11,61*/
+writeln(5+5.5+0.4+.71);
+
+writeln(4/2);
+int x <- 3;
+
+if (x=1) || (x=2)
+writeln("VERDADE");
+else
+writeln("FALSO");

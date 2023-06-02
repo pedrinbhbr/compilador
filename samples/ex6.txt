@@ -1,0 +1,11 @@
+/* Exemplo atribuicao de variavel */
+int y <- 2;
+int x <- 3;
+int z;
+z <- x * y;
+writeln(z);
+
+float v;
+v <- 2 * 3;
+writeln(v);
+writeln(3.0 * 2 * 4 * 5.0);
