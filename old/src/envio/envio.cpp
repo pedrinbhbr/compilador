@@ -2,8 +2,6 @@
  * Ciência da Computação - PUC Coração Eucarístico - Compiladores - 2/2021
  *  
  * Função Principal.
- * @author Igor Machado Seixas
- * @author Matheus Mendes Tavares
  * @author Pedro Henrique Ferreira de Souza
  * @version 0.2
  * 
