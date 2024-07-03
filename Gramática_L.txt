@@ -1,8 +1,5 @@
 /**
- * Ciência da Computação - PUC Coração Eucarístico - Compiladores - 2/2021 
- * 
- * Igor Machado Seixas
- * Matheus Mendes Tavares
+ * Ciência da Computação - PUC Coração Eucarístico - 2/2021 
  * Pedro Henrique Ferreira de Souza
  *
 **/
